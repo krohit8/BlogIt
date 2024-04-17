@@ -19,7 +19,7 @@ userRouter.post('/signup',async (c) => {
     if(!success){
         c.status(411);
         return c.json({
-            msg:"inputs incorrect"
+            msg:" incorrect"
         })
     }
     const prisma=new PrismaClient({
