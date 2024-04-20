@@ -3,7 +3,7 @@ import { verify } from "hono/jwt";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { createBlogInput, updateBlogInput } from "@krohit8/medium-common";
-import { string } from "zod";
+
 
 export const blogRouter = new Hono<{
   Bindings: {
@@ -95,7 +95,6 @@ blogRouter.put('/', async (c) => {
     })
 })
 
-// Todo: add pagination
 blogRouter.get('/bulk', async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
@@ -145,7 +144,7 @@ blogRouter.get('/:id', async (c) => {
             blog
         });
     } catch(e) {
-        c.status(411); // 4
+        c.status(411); 
         return c.json({
             message: "Error while fetching blog post"
         });

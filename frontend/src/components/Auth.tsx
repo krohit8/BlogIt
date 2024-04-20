@@ -8,7 +8,7 @@ import axios from "axios";
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const [postInputs, setPostInputs]=useState<SignupInput>({
         name:"",
-        username:"",
+        email:"",
         password:""
     })
     const navigate=useNavigate();
@@ -17,6 +17,7 @@ async function sendRequest(){
     const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
     const jwt = response.data;
     localStorage.setItem("token", jwt);
+   
     navigate("/blogs");
    }catch(e){
   alert("error while signing up")
@@ -41,10 +42,10 @@ async function sendRequest(){
                 name:e.target.value 
           })
           }}/>: null}
-           <LabelledInput label="Username" placeholder="rohit@gmail.com" onChange={(e)=>{
+           <LabelledInput label="email" placeholder="rohit@gmail.com" onChange={(e)=>{
               setPostInputs({
                 ...postInputs,
-                username:e.target.value 
+                email:e.target.value 
           })
           }}/>
            <LabelledInput label="Password" type={"password"} placeholder="123456" onChange={(e)=>{
@@ -74,7 +75,4 @@ interface LabelledInputType{
         </div>
   </div>
 }
-
-
-
 
