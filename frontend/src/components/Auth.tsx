@@ -15,12 +15,29 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
 async function sendRequest(){
    try{
     const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
-    const jwt = response.data;
+    const jwt = response.data.jwt;
     localStorage.setItem("token", jwt);
+    if (type === "signup") {
+      localStorage.setItem("email", postInputs.email);
+      localStorage.setItem("password", postInputs.password);
+  }
+
+
+    /* 
+     try {
+        const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
+        const jwt = response.data.jwt; // assuming jwt is returned in this format
+        localStorage.setItem("token", jwt);
+        // If you want to store email and password in localStorage as well, you can do so here
+        if (type === "signup") {
+            localStorage.setItem("email", postInputs.email);
+            localStorage.setItem("password", postInputs.password);
+        }*/
    
     navigate("/blogs");
    }catch(e){
-  alert("error while signing up")
+  alert("error while signing up",)
+  console.log(e)
    }
 }
 
